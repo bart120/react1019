@@ -3,11 +3,17 @@ import LoginForm from '../../components/login-form';
 
 class Login extends React.Component {
     state = {}
+
+    onLogin = (values, event) => {
+        //appel serveur
+        console.log(values);
+    }
+
     render() {
         return (
             <>
                 <h2>Connexion</h2>
-                <LoginForm />
+                <LoginForm onLogin={this.onLogin} login="bob@gmail.com" />
             </>
         );
     }
