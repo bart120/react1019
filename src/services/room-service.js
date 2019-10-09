@@ -12,4 +12,12 @@ export default class RoomService extends BaseService {
     deleteRoom(id) {
         return this.delete(`${URL_ROOMS}/${id}`);
     }
+
+    getById(id) {
+        return this.get(`${URL_ROOMS}/${id}`);
+    }
+
+    addRoom(room) {
+        return this.post(URL_ROOMS, room);
+    }
 }
