@@ -60,6 +60,6 @@ class AddRoom extends React.Component {
 }
 
 const mapReducerStateToComponentProps = (stateStore) =>
-    ({ serv: stateStore.roomService })
+    ({ serv: stateStore.services.roomService })
 
 export default connect(mapReducerStateToComponentProps)(withRouter(AddRoom));

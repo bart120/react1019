@@ -1,4 +1,9 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import servicesReducer from '../reducers/services-reducer';
+import authenticationReducer from '../reducers/authentication-reducer';
 
-export const store = createStore(servicesReducer);
+
+const rootReducer = combineReducers({ services: servicesReducer, auth: authenticationReducer });
+
+
+export const store = createStore(rootReducer);

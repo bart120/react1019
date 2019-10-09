@@ -4,15 +4,19 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { logout } from '../redux/actions/authentication-actions';
 
 class Header extends React.Component {
 
     state = {
-        isAuthenticated: false
+        //isAuthenticated: false
     };
 
     onLogout = (event) => {
         this.setState({ isAuthenticated: false });
+        this.props.actions.actionLogout();
         this.props.history.push('/');
     }
 
@@ -29,9 +33,9 @@ class Header extends React.Component {
                     </Nav>
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
-                    {this.state.isAuthenticated ? (
+                    {this.props.isConnected ? (
                         <>
-                            <Navbar.Text>Bonjour toto</Navbar.Text>
+                            <Navbar.Text>Bonjour {this.props.user.name}</Navbar.Text>
                             <Button onClick={this.onLogout}>Se déconnecter</Button>
                         </>
                     ) : (
@@ -43,4 +47,15 @@ class Header extends React.Component {
     }
 }
 
-export default withRouter(Header);
+const mapStateToProps = (stateStore) => ({
+    isConnected: stateStore.auth.isConnected,
+    user: stateStore.auth.user
+});
+
+const mapActionsToProps = (payload) => ({
+    actions: {
+        actionLogout: bindActionCreators(logout, payload)
+    }
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(withRouter(Header));
